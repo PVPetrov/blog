@@ -11,7 +11,7 @@ import history from '../history';
 const Root = ({ store }) => (
 	<Provider store={store}>
 		<Router history={history}>
-			<Route exact path='/' component={Home} />
+			<Route exact path='/' component={App} />
 			<Route exact path='/login' component={Login} />
 			<PrivateRoute exact path='/home' component={App} />
 		</Router>

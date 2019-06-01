@@ -12,7 +12,7 @@ const user = (state = {}, { type, data }) => {
 
 const isFetching = (state = false, { type }) => {
 	switch (type) {
-		case c.ERROR:
+		case c.LOGIN:
 			return true;
 		case c.LOGIN_SUCCESS:
 		case c.LOGIN_ERROR:
