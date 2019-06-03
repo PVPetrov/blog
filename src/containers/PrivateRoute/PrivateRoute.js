@@ -10,7 +10,7 @@ const PrivateRoute = ({ component: Component, sessionKey, ...rest }) => (
 );
 
 const mapStateToProps = state => ({
-	sessionKey: state.login.user.sessionKey,
+	token: state.login.user.token,
 });
 
 const mapDispatchToProps = {};

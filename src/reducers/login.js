@@ -5,6 +5,8 @@ const user = (state = {}, { type, data }) => {
 	switch (type) {
 		case c.LOGIN_SUCCESS:
 			return data;
+		case c.LOGOUT:
+			return {};
 		default:
 			return state;
 	}

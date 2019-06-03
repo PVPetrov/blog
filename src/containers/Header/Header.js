@@ -7,19 +7,26 @@ import { NavLink } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 import history from '../../history';
 import getWidthAndHeight from '../../utils/getWidthAndHeight';
+import { logout } from '../../actions/login';
 
 import './Header.sass';
 
-const HeaderLink = ({ name = '', address = '/', style = {} }) => (
-	<NavLink className='nav-link' activeClassName='active' style={{ ...style }} to={address}>
+const HeaderLink = ({ name = '', address = '/', style = {}, exact = false }) => (
+	<NavLink
+		className='nav-link'
+		exact={exact}
+		activeClassName='active'
+		style={{ ...style }}
+		to={address}
+	>
 		{name}
 	</NavLink>
 );
 
 const navLinks = [
-	{ name: 'Home', address: '/' },
+	{ name: 'Home', address: '/', exact: true },
 	{ name: 'Profile', address: '/profile' },
-	{ name: 'Blogs', address: '/blogs' },
+	{ name: 'Blog', address: '/blog' },
 ];
 
 const Navigation = ({ vertical = true, style = {} }) => (
@@ -54,7 +61,7 @@ const Logo = () => {
 	);
 };
 
-const AuthHeader = ({ isMobile, user }) => (
+const AuthHeader = ({ isMobile, user, logout }) => (
 	<>
 		{isMobile ? (
 			<Dropdown alignRight drop='down' style={{ marginLeft: 'auto' }}>
@@ -63,18 +70,26 @@ const AuthHeader = ({ isMobile, user }) => (
 				</Dropdown.Toggle>
 				<Dropdown.Menu>
 					<Navigation vertical={isMobile} />
+					<div
+						className='nav-link'
+						style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+					>
+						<span onClick={() => logout()}>Log out</span>
+						<i onClick={() => logout()} className='fas fa-sign-out-alt' />
+					</div>
 				</Dropdown.Menu>
 			</Dropdown>
 		) : (
 			<>
 				<Navigation vertical={isMobile} />
 				<HeaderLink style={{ marginLeft: 'auto' }} address='/profile' name={`${user.firstName}`} />
+				<i onClick={() => logout()} className='fas fa-sign-out-alt nav-link' />
 			</>
 		)}
 	</>
 );
 
-const Header = ({ user }) => {
+const Header = ({ user, logout }) => {
 	const { width } = getWidthAndHeight();
 	const isMobile = width < 500;
 	return (
@@ -82,7 +97,7 @@ const Header = ({ user }) => {
 			{user.token ? (
 				<>
 					<Logo />
-					<AuthHeader isMobile={isMobile} user={user} />
+					<AuthHeader isMobile={isMobile} user={user} logout={logout} />
 				</>
 			) : (
 				<>
@@ -98,7 +113,9 @@ const mapStateToProps = state => ({
 	user: state.login.user,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+	logout,
+};
 
 export default connect(
 	mapStateToProps,

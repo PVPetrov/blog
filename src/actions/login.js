@@ -17,3 +17,5 @@ export const login = credentials => async dispatch => {
 		dispatch({ type: c.LOGIN_ERROR, err });
 	}
 };
+
+export const logout = () => ({ type: c.LOGOUT });
