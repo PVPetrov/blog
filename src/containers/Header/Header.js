@@ -82,8 +82,11 @@ const AuthHeader = ({ isMobile, user, logout }) => (
 		) : (
 			<>
 				<Navigation vertical={isMobile} />
-				<HeaderLink style={{ marginLeft: 'auto' }} address='/profile' name={`${user.firstName}`} />
-				<i onClick={() => logout()} className='fas fa-sign-out-alt nav-link' />
+				<i
+					style={{ marginLeft: 'auto' }}
+					onClick={() => logout()}
+					className='fas fa-sign-out-alt nav-link'
+				/>
 			</>
 		)}
 	</>

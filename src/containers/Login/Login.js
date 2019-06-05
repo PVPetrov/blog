@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import validator from 'validator';
 import { login } from '../../actions/login';
+
+import './Login.sass';
 
 const { Control, Group } = Form;
 
@@ -28,7 +31,8 @@ class Login extends Component {
 	render() {
 		const { email, password } = this.state;
 		return (
-			<Container>
+			<div className='login-container'>
+				<h3>Login</h3>
 				<Form onSubmit={this.handleSubmit}>
 					<Group>
 						<Control
@@ -46,9 +50,14 @@ class Login extends Component {
 							placeholder='Password...'
 						/>
 					</Group>
-					<Button type='submit'>Log in</Button>
+					<Group style={{ display: 'flex', alignContent: 'flex-end' }}>
+						<Button type='submit'>Log in</Button>
+						<Link style={{ marginLeft: 'auto', alignSelf: 'flex-end' }} to='/signup'>
+							Sign up
+						</Link>
+					</Group>
 				</Form>
-			</Container>
+			</div>
 		);
 	}
 }
