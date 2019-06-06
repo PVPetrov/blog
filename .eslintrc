@@ -28,7 +28,8 @@
     "no-underscore-dangle": 0,
     "import/imports-first": ["error", "absolute-first"],
     "import/newline-after-import": "error",
-    "no-shadow": 0
+    "no-shadow": 0,
+    "react/require-default-props": 0
   },
   "globals": {
     "window": true,
