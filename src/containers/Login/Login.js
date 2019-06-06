@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import validator from 'validator';
 import { login } from '../../actions/login';
-
-import './Login.sass';
+import LoginContainer from '../../components/LoginContainer';
 
 const { Control, Group } = Form;
 
@@ -31,7 +30,7 @@ class Login extends Component {
 	render() {
 		const { email, password } = this.state;
 		return (
-			<div className='login-container'>
+			<LoginContainer>
 				<h3>Login</h3>
 				<Form onSubmit={this.handleSubmit}>
 					<Group>
@@ -57,7 +56,7 @@ class Login extends Component {
 						</Link>
 					</Group>
 				</Form>
-			</div>
+			</LoginContainer>
 		);
 	}
 }

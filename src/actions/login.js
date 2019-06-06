@@ -18,4 +18,20 @@ export const login = credentials => async dispatch => {
 	}
 };
 
+export const signup = credentials => async dispatch => {
+	dispatch({ type: c.SIGNUP });
+	try {
+		const { data } = await api.signup(credentials);
+		if (!data.Error && data.token) {
+			dispatch({ type: c.SIGNUP_SUCCESS, data });
+			history.push('/home');
+		} else {
+			dispatch({ type: c.SIGNUP_ERROR, data });
+		}
+	} catch (err) {
+		console.log('Signup error', err);
+		dispatch({ type: c.SIGNUP_ERROR, err });
+	}
+};
+
 export const logout = () => ({ type: c.LOGOUT });

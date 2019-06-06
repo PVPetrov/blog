@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import validador from 'validator';
-import { login } from '../../actions/login';
-
-import './Signup.sass';
+import { signup } from '../../actions/login';
+import LoginContainer from '../../components/LoginContainer';
 
 const { Control, Group } = Form;
 
@@ -34,78 +33,44 @@ class Signup extends Component {
 			validador.validator.isEmail(email) &&
 			validador.isLength(password, { min: 6, max: 12 } && password === repeatPassword)
 		) {
-			login({ email, password });
+			signup({ email, password });
 		}
 	};
 
 	render() {
-		const { firstname, lastname, email, nickname, password, repeatPassword } = this.state;
+		const fields = [
+			{ name: 'firstaName', placeholder: 'First Name', type: 'text' },
+			{ name: 'lastaName', placeholder: 'Last Name', type: 'text' },
+			{ name: 'nickname', placeholder: 'Nickname', type: 'text' },
+			{ name: 'email', placeholder: 'Email', type: 'email' },
+			{ name: 'password', placeholder: 'Password', type: 'password' },
+			{ name: 'confirm', placeholder: 'Confirm password', type: 'password' },
+		];
+
+		const { state } = this;
 		return (
-			<div className='login-container'>
-				<h3>Login</h3>
+			<LoginContainer>
+				<h3>Signup</h3>
 				<Form onSubmit={this.handleSubmit}>
-					<Group>
-						<Control
-							type='text'
-							name='firstname'
-							value={firstname}
-							onChange={this.handleChange}
-							placeholder='First name'
-						/>
-					</Group>
-					<Group>
-						<Control
-							type='text'
-							name='lastname'
-							value={lastname}
-							onChange={this.handleChange}
-							placeholder='Last name'
-						/>
-					</Group>
-					<Group>
-						<Control
-							type='text'
-							name='nickname'
-							value={nickname}
-							onChange={this.handleChange}
-							placeholder='Nickname'
-						/>
-					</Group>
-					<Group>
-						<Control
-							type='email'
-							name='email'
-							value={email}
-							onChange={this.handleChange}
-							placeholder='Email'
-						/>
-					</Group>
-					<Group>
-						<Control
-							type='password'
-							name='password'
-							value={password}
-							onChange={this.handleChange}
-							placeholder='Password'
-						/>
-					</Group>
-					<Group>
-						<Control
-							type='password'
-							name='repeatPassword'
-							value={repeatPassword}
-							onChange={this.handleChange}
-							placeholder='Repeat Password'
-						/>
-					</Group>
+					{fields.map(f => (
+						<Group>
+							<Control
+								type={f.type}
+								name={f.key}
+								value={state[f]}
+								onChange={this.handleChange}
+								placeholder={f.placeholder}
+							/>
+						</Group>
+					))}
 					<Group style={{ display: 'flex', alignContent: 'flex-end' }}>
-						<Button type='submit'>Log in</Button>
-						<Link style={{ marginLeft: 'auto', alignSelf: 'flex-end' }} to='/signup'>
-							Sign up
+						<Button type='submit'>Signup</Button>
+						<Link style={{ marginLeft: 'auto', alignSelf: 'flex-end' }} to='/login'>
+							Login
 						</Link>
 					</Group>
 				</Form>
-			</div>
+			</LoginContainer>
 		);
 	}
 }
@@ -113,7 +78,7 @@ class Signup extends Component {
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {
-	login,
+	signup,
 };
 
 export default connect(
