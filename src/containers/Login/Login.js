@@ -15,7 +15,8 @@ class Login extends Component {
 	};
 
 	handleChange = e => {
-		this.setState({ [e.target.type]: e.target.value });
+		const { name, value } = e.target;
+		this.setState({ [name]: value });
 	};
 
 	handleSubmit = e => {
@@ -37,6 +38,7 @@ class Login extends Component {
 						<Control
 							type='email'
 							value={email}
+							name='email'
 							onChange={this.handleChange}
 							placeholder='Email...'
 						/>
@@ -45,6 +47,7 @@ class Login extends Component {
 						<Control
 							type='password'
 							value={password}
+							name='password'
 							onChange={this.handleChange}
 							placeholder='Password...'
 						/>

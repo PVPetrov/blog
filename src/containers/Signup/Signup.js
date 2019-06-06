@@ -19,32 +19,37 @@ class Signup extends Component {
 	};
 
 	handleChange = e => {
-		this.setState({ [e.target.type]: e.target.value });
+		const { name, value } = e.target;
+		this.setState({ [name]: value });
 	};
 
 	handleSubmit = e => {
 		e.preventDefault();
 		const { firstname, lastname, email, nickname, password, repeatPassword } = this.state;
-		const { login } = this.props;
+		const { signup } = this.props;
 		if (
 			validador.isAlpha(firstname) &&
 			validador.isAlpha(lastname) &&
 			validador.isAlpha(nickname) &&
-			validador.validator.isEmail(email) &&
+			validador.isEmail(email) &&
 			validador.isLength(password, { min: 6, max: 12 } && password === repeatPassword)
 		) {
-			signup({ email, password });
+			const credentials = { ...this.state };
+			delete credentials.repeatPassword;
+			signup(credentials);
+		} else {
+			console.log('something is wrong', this.state);
 		}
 	};
 
 	render() {
 		const fields = [
-			{ name: 'firstaName', placeholder: 'First Name', type: 'text' },
-			{ name: 'lastaName', placeholder: 'Last Name', type: 'text' },
-			{ name: 'nickname', placeholder: 'Nickname', type: 'text' },
-			{ name: 'email', placeholder: 'Email', type: 'email' },
-			{ name: 'password', placeholder: 'Password', type: 'password' },
-			{ name: 'confirm', placeholder: 'Confirm password', type: 'password' },
+			{ key: 'firstname', placeholder: 'First Name', type: 'text' },
+			{ key: 'lastname', placeholder: 'Last Name', type: 'text' },
+			{ key: 'nickname', placeholder: 'Nickname', type: 'text' },
+			{ key: 'email', placeholder: 'Email', type: 'email' },
+			{ key: 'password', placeholder: 'Password', type: 'password' },
+			{ key: 'repeatPassword', placeholder: 'Confirm password', type: 'password' },
 		];
 
 		const { state } = this;
@@ -53,7 +58,7 @@ class Signup extends Component {
 				<h3>Signup</h3>
 				<Form onSubmit={this.handleSubmit}>
 					{fields.map(f => (
-						<Group>
+						<Group key={f.key}>
 							<Control
 								type={f.type}
 								name={f.key}

@@ -22,7 +22,7 @@ export const signup = credentials => async dispatch => {
 	dispatch({ type: c.SIGNUP });
 	try {
 		const { data } = await api.signup(credentials);
-		if (!data.Error && data.token) {
+		if (!data.Error) {
 			dispatch({ type: c.SIGNUP_SUCCESS, data });
 			history.push('/home');
 		} else {
