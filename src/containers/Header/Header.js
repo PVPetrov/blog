@@ -61,7 +61,7 @@ const Logo = () => {
 	);
 };
 
-const AuthHeader = ({ isMobile, user, logout }) => (
+const AuthHeader = ({ isMobile, logout }) => (
 	<>
 		{isMobile ? (
 			<Dropdown alignRight drop='down' style={{ marginLeft: 'auto' }}>
@@ -74,8 +74,10 @@ const AuthHeader = ({ isMobile, user, logout }) => (
 						className='nav-link'
 						style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
 					>
-						<span onClick={() => logout()}>Log out</span>
-						<i onClick={() => logout()} className='fas fa-sign-out-alt' />
+						<span title='Log out' onClick={() => logout()}>
+							Log out
+						</span>
+						<i title='Log out' onClick={() => logout()} className='fas fa-sign-out-alt' />
 					</div>
 				</Dropdown.Menu>
 			</Dropdown>
@@ -83,6 +85,7 @@ const AuthHeader = ({ isMobile, user, logout }) => (
 			<>
 				<Navigation vertical={isMobile} />
 				<i
+					title='Log out'
 					style={{ marginLeft: 'auto' }}
 					onClick={() => logout()}
 					className='fas fa-sign-out-alt nav-link'
